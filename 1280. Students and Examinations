@@ -1,0 +1,9 @@
+--  1280. Students and Examinations
+--  3 tables - cross join
+select s.student_id, s.student_name, SU.subject_name 
+from Students S
+cross join Subjects SU
+left join Examinations E
+on E.student_id = S.student_id
+and E.subject_name = SU.subject_name
+order by S.student_id, S.student_name, SU.subject_name
