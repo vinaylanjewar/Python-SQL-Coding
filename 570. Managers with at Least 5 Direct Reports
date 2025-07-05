@@ -1,0 +1,17 @@
+--  570. Managers with at Least 5 Direct Reports
+
+# Write your MySQL query statement below
+-- Solution 1
+
+select name from Employee 
+where id in (select managerId from Employee group by managerId 
+having count(managerId)>4);
+
+--  Solution 2  -->>  Using self join
+
+select e1.name
+from Employee e1 
+join Employee e2
+on e1.id = e2.managerid and e1.id != e2.id
+group by e1.name,e1.id 
+having count(e1.name) > 4;
