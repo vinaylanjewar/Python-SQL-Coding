@@ -1,0 +1,21 @@
+1075. Project Employees I
+
+-- # Write your MySQL query statement below
+
+SELECT
+    T1.project_id,
+    ROUND(AVG(CAST(experience_years aS DECIMAL(10,2))) ,2) as average_years
+FROM
+    Project T1 
+INNER JOIN
+    Employee T2 ON T1.employee_id = T2.employee_id
+GROUP BY
+    T1.project_id
+
+--  Solution 2
+# Write your MySQL query statement below
+select project.project_id, Round(Avg(Employee.experience_years),2) as average_years
+from project 
+left join employee
+on project.employee_id=employee.employee_id
+group by project.project_id;
