@@ -1,0 +1,29 @@
+1070. Product Sales Analysis III
+
+# Write your MySQL query statement below
+select product_id,year as first_year, quantity, price
+from Sales
+where(product_id, year) in 
+(select  product_id, min(year) 
+from Sales 
+group by product_id)
+
+Solution 2: with inner join
+
+WITH CTE AS (
+    SELECT product_id, MIN(year) AS minyear FROM Sales 
+    GROUP BY product_id 
+)
+
+SELECT s.product_id, s.year AS first_year, s.quantity, s.price 
+FROM Sales s
+INNER JOIN CTE ON cte.product_id = s.product_id  AND s.year = cte.minyear; 
+
+Solution 3: with rank
+
+WITH CTE AS
+(SELECT product_id, year, quantity, price, RANK() OVER(partition by product_id order by year) as rn
+FROM Sales)
+SELECT product_id, year as first_year, quantity, price
+FROM CTE
+WHERE rn = 1
