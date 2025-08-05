@@ -1,0 +1,23 @@
+1431. Kids With the Greatest Number of Candies
+
+Solution 1:
+class Solution:
+    def kidsWithCandies(self, candies: List[int], extraCandies: int) -> List[bool]:
+        maxCandies = max(candies)
+
+        return [(curNum + extraCandies >= maxCandies) for curNum in candies]
+
+Solution 2:
+class Solution:
+    def kidsWithCandies(self, candies: List[int], extraCandies: int) -> List[bool]:
+        greatest = max(candies)
+        result = []
+        for candy in candies:
+            if candy + extraCandies >= greatest:
+                result.append(True)
+            else:
+                result.append(False)
+        return result
+
+
+
