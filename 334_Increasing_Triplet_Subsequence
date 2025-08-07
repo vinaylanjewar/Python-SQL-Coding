@@ -1,0 +1,28 @@
+334. Increasing Triplet Subsequence
+
+class Solution:
+    def increasingTriplet(self, nums: List[int]) -> bool:
+        num_i = num_j = float('inf')
+        for num in nums:
+            if num <= num_i:
+                num_i = num
+            elif num <= num_j:
+                num_j = num
+            else:
+                return True
+        return False
+## same solution -----
+class Solution:
+    def increasingTriplet(self, nums: List[int]) -> bool:
+        if len(nums) < 3:
+            return False
+        a = float('+inf')
+        b = float('+inf')
+        for x in nums:
+            if x <= a:
+                a = x
+            elif x <= b:
+                b = x
+            else:
+                return True
+        return False
