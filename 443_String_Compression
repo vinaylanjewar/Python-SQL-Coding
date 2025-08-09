@@ -1,0 +1,54 @@
+443. String Compression
+
+## Solution 1:
+class Solution:
+    def compress(self, chars: List[str]) -> int:
+        nu_chars = len(chars)
+        if nu_chars < 2:
+            return nu_chars
+
+        i = j = 0
+        while i < nu_chars:
+            count = 1
+            while i < nu_chars - 1 and chars[i] == chars[i+1]:
+                count += 1
+                i += 1
+            
+            chars[j] = chars[i]
+            j += 1
+            if count > 1:
+                for val in str(count):
+                    chars[j] = val
+                    j += 1
+            
+            i += 1
+
+        return j
+
+Solution 2:
+
+def compress(chars):
+    res = []  # temporary list to store compressed result
+    count = 1  # count of current character
+
+    for i in range(1, len(chars) + 1):
+        # if next char is same as current, increase count
+        if i < len(chars) and chars[i] == chars[i - 1]:
+            count += 1
+        else:
+            # append current char
+            res.append(chars[i - 1])
+            # append count if more than 1
+            if count > 1:
+                for digit in str(count):
+                    res.append(digit)
+            count = 1  # reset count
+
+    # copy back to chars (LeetCode requirement)
+    chars[:len(res)] = res
+    return len(res)
+
+# Example test
+chars = ["a","a","b","b","c","c","c"]
+new_len = compress(chars)
+print(new_len, chars[:new_len])  # 6 ['a', '2', 'b', '2', 'c', '3']
